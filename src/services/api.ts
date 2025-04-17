@@ -2,7 +2,7 @@ import axios from "axios";
 import { AuthStorage } from "@/lib/auth";
 
 const apiClient = axios.create({
-  baseURL: "https://dev.api.tryteddy.com/f1dev/admin/",
+  baseURL: "https://api.tryteddy.com/f1dev/admin/",
   headers: {
     "Content-Type": "application/json",
   },
