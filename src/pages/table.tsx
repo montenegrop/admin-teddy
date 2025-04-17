@@ -6,30 +6,63 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { PasswordInput } from "@/components/ui/password-input";
+import { useCompanies } from "@/hooks/useCompanies";
+import { AuthStorage } from "@/lib/auth";
 
 export function TablePage() {
+  const { companies, isLoading, error, refetchUsers } = useCompanies();
+
+  const handleSavePassword = (password: string) => {
+    AuthStorage.setPassword(password);
+    refetchUsers();
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading users</div>;
+
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Table Example</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">Users</h1>
+        <div className="flex gap-4 items-center">
+          <PasswordInput onSave={handleSavePassword} className="w-64" />
+          <Button variant="outline" onClick={() => refetchUsers()}>
+            Reload
+          </Button>
+        </div>
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
+            <TableHead>Phone</TableHead>
+            <TableHead>Twilio</TableHead>
+            <TableHead>City</TableHead>
             <TableHead>Email</TableHead>
-            <TableHead>Role</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell>John Doe</TableCell>
-            <TableCell>john@example.com</TableCell>
-            <TableCell>Admin</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Jane Smith</TableCell>
-            <TableCell>jane@example.com</TableCell>
-            <TableCell>User</TableCell>
-          </TableRow>
+          {companies?.map((company) => (
+            <TableRow key={company.id}>
+              <TableCell>{company.name}</TableCell>
+              <TableCell>{company.phone}</TableCell>
+              <TableCell>{company.twilio_phone}</TableCell>
+              <TableCell>{company.city}</TableCell>
+              <TableCell>
+                <a
+                  href={`https://app.tryteddy.com/login?email=${
+                    company.email
+                  }&password=${AuthStorage.getPassword()}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {company.email}
+                </a>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>
