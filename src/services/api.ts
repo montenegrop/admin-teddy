@@ -1,8 +1,9 @@
 import axios from "axios";
 import { AuthStorage } from "@/lib/auth";
+import { FDEV_API_URL } from "@/constants";
 
 const apiClient = axios.create({
-  baseURL: "https://api.tryteddy.com/f1dev/admin/",
+  baseURL: FDEV_API_URL + "admin/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -18,6 +19,7 @@ export interface Company {
   timezone: string;
   city: string;
   email: string;
+  last_activity: string;
 }
 
 export const UserService = {

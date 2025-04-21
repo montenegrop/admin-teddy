@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useCompanies } from "@/hooks/useCompanies";
 import { AuthStorage } from "@/lib/auth";
+import { VITE_FRONT } from "@/constants";
 
 export function TablePage() {
   const { companies, isLoading, error, refetchUsers } = useCompanies();
@@ -41,6 +42,7 @@ export function TablePage() {
             <TableHead>Twilio</TableHead>
             <TableHead>City</TableHead>
             <TableHead>Email</TableHead>
+            <TableHead>Last activity</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -50,9 +52,9 @@ export function TablePage() {
               <TableCell>{company.phone}</TableCell>
               <TableCell>{company.twilio_phone}</TableCell>
               <TableCell>{company.city}</TableCell>
-              <TableCell>
+              <TableCell className="hover:underline hover:text-blue-600">
                 <a
-                  href={`https://app.tryteddy.com/login?email=${
+                  href={`${VITE_FRONT}login?email=${
                     company.email
                   }&password=${AuthStorage.getPassword()}`}
                   target="_blank"
@@ -61,6 +63,7 @@ export function TablePage() {
                   {company.email}
                 </a>
               </TableCell>
+              <TableCell>{company.last_activity}</TableCell>
             </TableRow>
           ))}
         </TableBody>
