@@ -43,6 +43,7 @@ export function TablePage() {
             <TableHead>City</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Last activity</TableHead>
+            <TableHead>Sms</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -64,6 +65,7 @@ export function TablePage() {
                 </a>
               </TableCell>
               <TableCell>{company.last_activity}</TableCell>
+              <TableCell>{company.city}</TableCell>
             </TableRow>
           ))}
         </TableBody>

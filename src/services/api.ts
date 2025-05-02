@@ -20,6 +20,7 @@ export interface Company {
   city: string;
   email: string;
   last_activity: string;
+  sms_remining: number;
 }
 
 export const UserService = {
