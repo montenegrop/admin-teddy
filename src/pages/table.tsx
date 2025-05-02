@@ -65,7 +65,7 @@ export function TablePage() {
                 </a>
               </TableCell>
               <TableCell>{company.last_activity}</TableCell>
-              <TableCell>{company.city}</TableCell>
+              <TableCell>{company.sms_remining}</TableCell>
             </TableRow>
           ))}
         </TableBody>
