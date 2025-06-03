@@ -9,7 +9,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { AuthStorage } from "@/lib/auth";
-import { VITE_FRONT } from "@/constants";
 import { useCalls } from "@/hooks/useCalls";
 
 export function TablePage() {

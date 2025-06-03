@@ -45,7 +45,7 @@ export const UserService = {
       return [];
     }
   },
-    getCalls: async (): Promise<Call[]> => {
+  getCalls: async (): Promise<Call[]> => {
     try {
       const password = AuthStorage.getPassword();
       const response = await apiClient.get<Call[]>("/calls/", {
