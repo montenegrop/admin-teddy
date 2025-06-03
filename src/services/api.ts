@@ -23,12 +23,33 @@ export interface Company {
   sms_remining: number;
 }
 
+export interface Call {
+  id: string;
+  name: string;
+  twilio: string;
+  caller: string;
+  duration: string;
+  summary: string;
+  audio_url: string;
+}
+
 export const UserService = {
   getCompanies: async (): Promise<Company[]> => {
     try {
       const password = AuthStorage.getPassword();
       const response = await apiClient.get<Company[]>("/companies/", {
         params: { password, appointment_id: 1 },
+      });
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  },
+    getCalls: async (): Promise<Call[]> => {
+    try {
+      const password = AuthStorage.getPassword();
+      const response = await apiClient.get<Call[]>("/calls/", {
+        params: { password, limit: 20, offset: 0 },
       });
       return response.data;
     } catch (error) {

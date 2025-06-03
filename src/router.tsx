@@ -22,8 +22,14 @@ const tableRoute = createRoute({
   getParentRoute: () => rootRoute,
 })
 
+const tableCalls = createRoute({
+  component: TablePage,
+  path: '/calls',
+  getParentRoute: () => rootRoute,
+})
+
 // Create the route tree
-const routeTree = rootRoute.addChildren([indexRoute, tableRoute])
+const routeTree = rootRoute.addChildren([indexRoute, tableRoute, tableCalls])
 
 // Create the router
 export const router = createRouter({ routeTree })
