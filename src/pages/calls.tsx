@@ -56,7 +56,7 @@ export function CallsPage() {
               {/* <TableCell>{call.summary}</TableCell> */}
               <TableCell>
                 <button
-                  onClick={() => navigator.clipboard.writeText(call.audio_url)}
+                  onClick={() => window.open(call.audio_url, '_blank')}
                   className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
                   title={call.audio_url}
                 >
