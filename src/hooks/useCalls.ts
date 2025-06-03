@@ -5,13 +5,12 @@ export function useCalls() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["calls"],
     queryFn: UserService.getCalls,
-    staleTime: 1000 * 60 * 1,
   });
 
   return {
     calls: data,
     isLoading,
     error,
-    refetchUsers: refetch,
+    refetchCalls: refetch,
   };
 }

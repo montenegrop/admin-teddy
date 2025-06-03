@@ -13,12 +13,12 @@ import { useCalls } from "@/hooks/useCalls";
 
 export function CallsPage() {
 
-  const { calls, isLoading, error, refetchUsers } = useCalls();
+  const { calls, isLoading, error, refetchCalls } = useCalls();
 
 
   const handleSavePassword = (password: string) => {
     AuthStorage.setPassword(password);
-    refetchUsers();
+    refetchCalls();
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -27,10 +27,10 @@ export function CallsPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Users</h1>
+        <h1 className="text-2xl font-bold">Calls</h1>
         <div className="flex gap-4 items-center">
           <PasswordInput onSave={handleSavePassword} className="w-64" />
-          <Button variant="outline" onClick={() => refetchUsers()}>
+          <Button variant="outline" onClick={() => refetchCalls()}>
             Reload
           </Button>
         </div>
@@ -42,7 +42,7 @@ export function CallsPage() {
             <TableHead>Twilio</TableHead>
             <TableHead>Caller</TableHead>
             <TableHead>Duration</TableHead>
-            <TableHead>Summary</TableHead>
+            {/* <TableHead>Summary</TableHead> */}
             <TableHead>Audio</TableHead>
           </TableRow>
         </TableHeader>
@@ -53,8 +53,16 @@ export function CallsPage() {
               <TableCell>{call.twilio}</TableCell>
               <TableCell>{call.caller}</TableCell>
               <TableCell>{call.duration}</TableCell>
-              <TableCell>{call.summary}</TableCell>
-              <TableCell>{call.audio_url}</TableCell>
+              {/* <TableCell>{call.summary}</TableCell> */}
+              <TableCell>
+                <button
+                  onClick={() => navigator.clipboard.writeText(call.audio_url)}
+                  className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                  title={call.audio_url}
+                >
+                  {call.audio_url ? call.audio_url.slice(0, 5) + "..." : "-"}
+                </button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

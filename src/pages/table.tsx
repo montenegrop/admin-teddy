@@ -13,11 +13,11 @@ import { AuthStorage } from "@/lib/auth";
 import { VITE_FRONT } from "@/constants";
 
 export function TablePage() {
-  const { companies, isLoading, error, refetchUsers } = useCompanies();
+  const { companies, isLoading, error, refetchCompanies } = useCompanies();
 
   const handleSavePassword = (password: string) => {
     AuthStorage.setPassword(password);
-    refetchUsers();
+    refetchCompanies();
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -26,10 +26,10 @@ export function TablePage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Users</h1>
+        <h1 className="text-2xl font-bold">Stores</h1>
         <div className="flex gap-4 items-center">
           <PasswordInput onSave={handleSavePassword} className="w-64" />
-          <Button variant="outline" onClick={() => refetchUsers()}>
+          <Button variant="outline" onClick={() => refetchCompanies()}>
             Reload
           </Button>
         </div>

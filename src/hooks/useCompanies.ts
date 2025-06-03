@@ -5,13 +5,12 @@ export function useCompanies() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["companies"],
     queryFn: UserService.getCompanies,
-    staleTime: 1000 * 60 * 1,
   });
 
   return {
     companies: data,
     isLoading,
     error,
-    refetchUsers: refetch,
+    refetchCompanies: refetch,
   };
 }

@@ -2,6 +2,7 @@ import { createRouter, createRootRoute, createRoute } from '@tanstack/react-rout
 import { RootLayout } from '@/components/layout'
 import { HomePage } from '@/pages/home'
 import { TablePage } from '@/pages/table'
+import { CallsPage } from '@/pages/calls'
 
 // Create a root route
 const rootRoute = createRootRoute({
@@ -23,7 +24,7 @@ const tableRoute = createRoute({
 })
 
 const tableCalls = createRoute({
-  component: TablePage,
+  component: CallsPage,
   path: '/calls',
   getParentRoute: () => rootRoute,
 })
