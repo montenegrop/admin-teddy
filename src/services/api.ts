@@ -38,7 +38,7 @@ export const UserService = {
     try {
       const password = AuthStorage.getPassword();
       const response = await apiClient.get<Company[]>("/companies/", {
-        params: { password, appointment_id: 1 },
+        params: { password },
       });
       return response.data;
     } catch (error) {

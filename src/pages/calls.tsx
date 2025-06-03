@@ -11,7 +11,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { AuthStorage } from "@/lib/auth";
 import { useCalls } from "@/hooks/useCalls";
 
-export function TablePage() {
+export function CallsPage() {
 
   const { calls, isLoading, error, refetchUsers } = useCalls();
 
