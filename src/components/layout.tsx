@@ -12,6 +12,9 @@ export function RootLayout() {
           <Button variant="ghost" asChild>
             <Link to="/table">Table</Link>
           </Button>
+          <Button variant="ghost" asChild>
+            <Link to="/calls">Calls</Link>
+          </Button>
         </div>
       </nav>
       <main className="container py-8">
