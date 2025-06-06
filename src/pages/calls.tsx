@@ -42,6 +42,7 @@ export function CallsPage() {
             <TableHead>Twilio</TableHead>
             <TableHead>Caller</TableHead>
             <TableHead>Duration</TableHead>
+            <TableHead>Summary</TableHead>
             {/* <TableHead>Summary</TableHead> */}
             <TableHead>Audio</TableHead>
           </TableRow>
@@ -49,11 +50,31 @@ export function CallsPage() {
         <TableBody>
           {calls?.map((call) => (
             <TableRow key={call.id}>
-              <TableCell>{call.name}</TableCell>
+              <TableCell>
+                {call.name.length > 25 ? (
+                  <span title={call.name}>{call.name.slice(0, 25)}...</span>
+                ) : (
+                  call.name
+                )}
+              </TableCell>
               <TableCell>{call.twilio}</TableCell>
               <TableCell>{call.caller}</TableCell>
               <TableCell>{call.duration}</TableCell>
-              {/* <TableCell>{call.summary}</TableCell> */}
+              <TableCell>
+                <div
+                  className="max-w-xs overflow-hidden text-ellipsis"
+                  style={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 5,
+                    WebkitBoxOrient: 'vertical',
+                    lineHeight: '1.2em',
+                    maxHeight: '6em'
+                  }}
+                  title={call.summary}
+                >
+                  {call.summary}
+                </div>
+              </TableCell>
               <TableCell>
                 <button
                   onClick={() => window.open(call.audio_url, '_blank')}
