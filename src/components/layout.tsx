@@ -7,6 +7,10 @@ export function RootLayout() {
     <SidebarProvider>
       <AdminSidebar />
       <main className="container py-8">
+        <div className="fixed z-50 top-1">
+
+          <SidebarTrigger />
+        </div>
         <Outlet />
       </main>
     </SidebarProvider >
