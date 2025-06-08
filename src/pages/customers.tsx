@@ -90,7 +90,8 @@ export function CustomersPage() {
               <TableHead>Last Activity</TableHead>
               <TableHead>SMS Credits</TableHead>
               <TableHead className="text-right">Actions</TableHead>
-              <TableHead className="w-12"></TableHead>
+              <TableHead className="w-20"></TableHead>
+
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -103,23 +104,23 @@ export function CustomersPage() {
               >
                 <>
                   <CollapsibleTrigger asChild>
-                    <TableRow className="cursor-pointer hover:bg-muted/50">
+                    <TableRow className="cursor-pointer hover:bg-muted/50 h-20">
 
-                      <TableCell className="font-bold">
+                      <TableCell className="font-medium ">
                         {company.name || "N/A"}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="">
                         {company.email ? company.email.split('@')[0] : "N/A"}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="">
                         {company.last_activity || "N/A"}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="">
                         <Badge variant={getSMSBadgeVariant(company.sms_remining || 0)}>
                           {company.sms_remining || 0}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-right ">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -136,11 +137,11 @@ export function CustomersPage() {
                           Login
                         </Button>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="">
                         {expandedRows.has(company.id) ? (
-                          <ChevronUp className="h-4 w-4" />
+                          <ChevronUp className="h-4 w-4 mx-auto" />
                         ) : (
-                          <ChevronDown className="h-4 w-4" />
+                          <ChevronDown className="h-4 w-4 mx-auto" />
                         )}
                       </TableCell>
                     </TableRow>
