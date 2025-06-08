@@ -14,7 +14,7 @@ import {
 // Menu items.
 const items = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "#",
     icon: Home,
   },
@@ -24,13 +24,13 @@ const items = [
     icon: Inbox,
   },
   {
-    title: "Calls",
+    title: "Call Logs",
     url: "calls",
     icon: Calendar,
   },
   {
-    title: "Search",
-    url: "#",
+    title: "Text Logs",
+    url: "texts",
     icon: Search,
   },
   {
