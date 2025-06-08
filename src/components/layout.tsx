@@ -1,25 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { Outlet, Link } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
+import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
+import { AdminSidebar } from "./admin-sidebar";
 
 export function RootLayout() {
   return (
-    <div className="min-h-svh">
-      <nav className="border-b p-4">
-        <div className="container flex items-center gap-4">
-          <Button variant="ghost" asChild>
-            <Link to="/">Home</Link>
-          </Button>
-          <Button variant="ghost" asChild>
-            <Link to="/table">Table</Link>
-          </Button>
-          <Button variant="ghost" asChild>
-            <Link to="/calls">Calls</Link>
-          </Button>
-        </div>
-      </nav>
+    <SidebarProvider>
+      <AdminSidebar />
       <main className="container py-8">
         <Outlet />
       </main>
-    </div>
+    </SidebarProvider >
   );
 }

@@ -1,13 +1,15 @@
 import { createRouter, createRootRoute, createRoute } from '@tanstack/react-router'
 import { RootLayout } from '@/components/layout'
 import { HomePage } from '@/pages/home'
-import { TablePage } from '@/pages/table'
 import { CallsPage } from '@/pages/calls'
+import { CustomersPage } from './pages/customers'
 
 // Create a root route
 const rootRoute = createRootRoute({
   component: RootLayout,
 })
+
+
 
 // Create an index route
 const indexRoute = createRoute({
@@ -17,9 +19,9 @@ const indexRoute = createRoute({
 })
 
 // Create a table route
-const tableRoute = createRoute({
-  component: TablePage,
-  path: '/table',
+const customersRoute = createRoute({
+  component: CustomersPage,
+  path: '/customers',
   getParentRoute: () => rootRoute,
 })
 
@@ -30,7 +32,7 @@ const tableCalls = createRoute({
 })
 
 // Create the route tree
-const routeTree = rootRoute.addChildren([indexRoute, tableRoute, tableCalls])
+const routeTree = rootRoute.addChildren([indexRoute, customersRoute, tableCalls])
 
 // Create the router
 export const router = createRouter({ routeTree })

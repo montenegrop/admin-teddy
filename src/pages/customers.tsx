@@ -12,7 +12,7 @@ import { useCompanies } from "@/hooks/useCompanies";
 import { AuthStorage } from "@/lib/auth";
 import { VITE_FRONT } from "@/constants";
 
-export function TablePage() {
+export function CustomersPage() {
   const { companies, isLoading, error, refetchCompanies } = useCompanies();
 
   const handleSavePassword = (password: string) => {
@@ -26,7 +26,7 @@ export function TablePage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Stores</h1>
+        <h1 className="text-2xl font-bold">Customers</h1>
         <div className="flex gap-4 items-center">
           <PasswordInput onSave={handleSavePassword} className="w-64" />
           <Button variant="outline" onClick={() => refetchCompanies()}>
@@ -55,9 +55,8 @@ export function TablePage() {
               <TableCell>{company.city}</TableCell>
               <TableCell className="hover:underline hover:text-blue-600">
                 <a
-                  href={`${VITE_FRONT}login?email=${
-                    company.email
-                  }&password=${AuthStorage.getPassword()}`}
+                  href={`${VITE_FRONT}login?email=${company.email
+                    }&password=${AuthStorage.getPassword()}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
