@@ -82,11 +82,7 @@ export function CompanyEditPage() {
     const handleSave = async () => {
         try {
             setIsSaving(true);
-            // TODO: Implement API call to update company
-            // await UserService.updateCompany(companyId, formData);
             console.log("Saving company data:", formData);
-
-            // Navigate back to customers page after successful save
             navigate({ to: '/customers' });
         } catch (error) {
             console.error("Error saving company:", error);
@@ -103,8 +99,8 @@ export function CompanyEditPage() {
     };
 
     const getSMSBadgeVariant = (smsRemaining: number) => {
-        if (smsRemaining > 50) return "default";
-        if (smsRemaining > 20) return "secondary";
+        if (smsRemaining > 200) return "default";
+        if (smsRemaining > 50) return "secondary";
         return "destructive";
     };
 
@@ -284,6 +280,12 @@ export function CompanyEditPage() {
                         </CardContent>
                     </Card>
                 </div>
+            </div>
+            <div>
+                <p>
+                    {(JSON.stringify(formData))}
+                </p>
+
             </div>
         </div>
     );
