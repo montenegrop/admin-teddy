@@ -18,6 +18,8 @@ export interface Company {
   timezone_offset_mins: number;
   timezone: string;
   city: string;
+  address: string;
+  created_at: string;
   email: string;
   last_activity: string;
   sms_remining: number;

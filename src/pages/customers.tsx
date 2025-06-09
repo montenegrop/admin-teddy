@@ -171,12 +171,12 @@ export function CustomersPage() {
                                   <dd className="text-sm">{company.twilio_phone || "N/A"}</dd>
                                 </div>
                                 <div>
-                                  <dt className="text-sm font-medium text-muted-foreground">City:</dt>
-                                  <dd className="text-sm">{company.city || "N/A"}</dd>
+                                  <dt className="text-sm font-medium text-muted-foreground">Address:</dt>
+                                  <dd className="text-sm">{company.address || "N/A"}</dd>
                                 </div>
                                 <div>
-                                  <dt className="text-sm font-medium text-muted-foreground">Timezone:</dt>
-                                  <dd className="text-sm">{company.timezone || "N/A"}</dd>
+                                  <dt className="text-sm font-medium text-muted-foreground">Signup Date:</dt>
+                                  <dd className="text-sm">{company.created_at || "N/A"}</dd>
                                 </div>
                                 <div>
                                   <dt className="text-sm font-medium text-muted-foreground">SMS Credits Remaining:</dt>
