@@ -17,17 +17,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useDashboard } from '@/hooks/useDashboard'
+import { Link } from '@tanstack/react-router'
 
-// Fake data for companies with low SMS credits
-const lowSMSCompanies = [
-  { name: "Sunny Side Cafe", smsCredits: 12 },
-  { name: "Metro Auto Repair", smsCredits: 8 },
-  { name: "Bella's Boutique", smsCredits: 15 },
-  { name: "Tech Solutions LLC", smsCredits: 5 },
-  { name: "Green Valley Nursery", smsCredits: 18 },
-]
+
+
 
 // Component for metric cards using shadcn/ui Card
+const formatMetricValue = (value: number | undefined, fallbackText: string = "N/A") => {
+  if (value === undefined) return "Loading...";
+  if (value === -1) return fallbackText;
+  return value.toString();
+};
+
 function MetricCard({
   title,
   value,
@@ -64,7 +66,9 @@ function MetricCard({
   )
 }
 
-export function HomePage() {
+export function DashboardPage() {
+  const { dashboardData } = useDashboard()
+
   return (
     <div className="space-y-8">
       <div className="bg-gray-200 py-2">
@@ -76,19 +80,19 @@ export function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <MetricCard
             title="Total Customers"
-            value="147"
+            value={formatMetricValue(dashboardData?.companies_count, "Error")}
             icon={Users}
           />
           <MetricCard
             title="Daily Active Users"
-            value="23"
-            change="+8% from yesterday"
+            value="coming soon"
+            // change="+8% from yesterday"
             icon={Users}
           />
           <MetricCard
             title="Weekly Active Users"
-            value="89"
-            change="+15% from last week"
+            value="coming soon"
+            // change="+15% from last week"
             icon={Users}
           />
         </div>
@@ -100,13 +104,13 @@ export function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <MetricCard
             title="Calls Today"
-            value="156"
+            value={formatMetricValue(dashboardData?.calls_count, "Error")}
             change="+5% from yesterday"
             icon={Phone}
           />
           <MetricCard
             title="Texts Sent Today"
-            value="234"
+            value={formatMetricValue(dashboardData?.sms_today, "Error")}
             change="+12% from yesterday"
             icon={MessageSquare}
           />
@@ -123,7 +127,7 @@ export function HomePage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <CardDescription className="text-sm font-medium text-yellow-800">
-            Companies with low SMS credits (less than 20):
+            Companies with low SMS credits (less than 200):
           </CardDescription>
 
           <Card>
@@ -136,21 +140,21 @@ export function HomePage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {lowSMSCompanies.map((company, index) => (
+                {dashboardData?.low_sms_companies.map((company, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">{company.name}</TableCell>
                     <TableCell>
                       <Badge
-                        variant={company.smsCredits < 10 ? "destructive" : "secondary"}
+                        variant={company.sms_remining < 10 ? "destructive" : "secondary"}
                       >
-                        {company.smsCredits}
+                        {company.sms_remining}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="outline" size="sm">
-                        <ExternalLink className="h-4 w-4 mr-1" />
-                        Contact
-                      </Button>
+                      {/* <Button variant="outline" size="sm">
+                        <Link className="h-4 w-4 mr-1" to={`/companies/${company.id}/edit`} />
+                        Fill
+                      </Button> */}
                     </TableCell>
                   </TableRow>
                 ))}

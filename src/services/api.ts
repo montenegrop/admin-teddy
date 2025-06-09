@@ -36,6 +36,14 @@ export interface Call {
   grade: string;
 }
 
+export interface Dashboard {
+  companies_count: number;
+  calls_count: number;
+  calls_today: number;
+  sms_today: number;
+  low_sms_companies: Company[];
+}
+
 export const UserService = {
   getCompanies: async (): Promise<Company[]> => {
     try {
@@ -57,6 +65,22 @@ export const UserService = {
       return response.data;
     } catch (error) {
       return [];
+    }
+  },
+  getDashboard: async (): Promise<Dashboard> => {
+    try {
+      const password = AuthStorage.getPassword();
+      const response = await apiClient.get<Dashboard>("/dashboard/", {
+        params: { password },
+      });
+      return response.data;
+    } catch (error) {
+      return {
+        companies_count: -1,
+        calls_count: -1,
+        calls_today: -1,
+        sms_today: -1,
+      };
     }
   },
 };
