@@ -11,7 +11,10 @@ export function RootLayout() {
 
           <SidebarTrigger />
         </div>
-        <Outlet />
+        <div className="px-4">
+
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider >
   );
