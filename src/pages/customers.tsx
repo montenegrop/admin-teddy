@@ -54,11 +54,9 @@ export function CustomersPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
+      <div className="bg-gray-200 py-2">
         <h1 className="text-3xl font-bold tracking-tight">Customers</h1>
-        <p className="text-muted-foreground">
-          Manage and view all customer information
-        </p>
+
       </div>
 
       {/* Search and Controls */}

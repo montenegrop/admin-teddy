@@ -1,4 +1,5 @@
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Link } from "@tanstack/react-router"
 
 import {
   Sidebar,
@@ -15,29 +16,29 @@ import {
 const items = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
     title: "Customers",
-    url: "customers",
+    url: "/customers",
     icon: Inbox,
   },
   {
     title: "Call Logs",
-    url: "calls",
+    url: "/calls",
     icon: Calendar,
   },
-  {
-    title: "Text Logs",
-    url: "texts",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
+  // {
+  //   title: "Text Logs",
+  //   url: "/texts",
+  //   icon: Search,
+  // },
+  // {
+  //   title: "Settings",
+  //   url: "/settings",
+  //   icon: Settings,
+  // },
 ]
 
 export function AdminSidebar() {
@@ -45,16 +46,21 @@ export function AdminSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="bg-blue-600 text-white font-bold text-xl h-16 flex items-center rounded-none justify-center">Admin Dashboard</SidebarGroupLabel>
+          <SidebarGroupLabel className="bg-blue-600 text-white font-bold text-xl h-16 flex items-center rounded-none justify-center">
+            Admin Dashboard
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
+                    <Link
+                      to={item.url}
+                      className="flex items-center gap-2 w-full"
+                    >
+                      <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

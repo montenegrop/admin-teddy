@@ -47,8 +47,9 @@ export function CallsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
+      <div className="bg-gray-200 py-2">
         <h1 className="text-3xl font-bold tracking-tight">Call Logs</h1>
+
       </div>
 
       {/* Search and Controls */}
@@ -75,13 +76,11 @@ export function CallsPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Bussiness</TableHead>
-              <TableHead>Call Time</TableHead>
+              <TableHead>Store</TableHead>
+              <TableHead>Call time</TableHead>
               <TableHead>Caller #</TableHead>
               <TableHead>Duration</TableHead>
-              <TableHead>Grade</TableHead>
               <TableHead className="w-20"></TableHead>
-
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -111,9 +110,6 @@ export function CallsPage() {
                       </TableCell>
                       <TableCell className="py-4">
                         {call.duration || "N/A"}
-                      </TableCell>
-                      <TableCell className="py-4">
-                        {call.grade || "N/A"}
                       </TableCell>
                       <TableCell className="py-4">
                         {expandedRows.has(call.id) ? (
@@ -148,26 +144,41 @@ export function CallsPage() {
                                   <dt className="text-sm font-medium text-muted-foreground">Call Duration:</dt>
                                   <dd className="text-sm">{call.duration || "N/A"}</dd>
                                 </div>
-                                <div>
-                                  <dt className="text-sm font-medium text-muted-foreground">Summary:</dt>
-                                  <dd className="text-sm max-w-md">
-                                    {call.summary || "No summary available"}
-                                  </dd>
-                                </div>
+
                               </dl>
                             </div>
                             <div>
                               <h3 className="font-semibold text-lg mb-4">Call Analysis</h3>
-                              <h4 className="font-semibold text-sm mb-2">
-                                Summmary:
-                              </h4>
-                              <p>
-                                {call.summary
-                                  ? JSON.parse(call.summary).call_summary ||
-                                  "No summary available"
-                                  : "No summary available"}
-                              </p>
+                              <div className="space-y-3">
+                                <div>
+                                  <h4 className="font-semibold text-sm mb-2">Summary:</h4>
+                                  <div className="min-h-[3rem] max-h-[7.5rem] overflow-y-auto border rounded-md p-3 bg-muted/30 text-sm leading-relaxed">
+                                    {(() => {
+                                      try {
+                                        return call.summary
+                                          ? JSON.parse(call.summary).call_summary || "No summary available"
+                                          : "No summary available";
+                                      } catch (error) {
+                                        return call.summary || "No summary available";
+                                      }
+                                    })()}
+                                  </div>
+                                </div>
 
+                                {call.audio_url && (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full justify-start"
+                                    onClick={() => {
+                                      window.open(call.audio_url, '_blank');
+                                    }}
+                                  >
+                                    <Play className="h-4 w-4 mr-2" />
+                                    Play Audio Recording
+                                  </Button>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
