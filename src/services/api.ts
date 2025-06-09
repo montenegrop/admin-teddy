@@ -80,6 +80,7 @@ export const UserService = {
         calls_count: -1,
         calls_today: -1,
         sms_today: -1,
+        low_sms_companies: [],
       };
     }
   },
