@@ -33,6 +33,7 @@ export interface Call {
   duration: string;
   summary: string;
   audio_url: string;
+  grade: string;
 }
 
 export const UserService = {
