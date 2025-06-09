@@ -13,9 +13,10 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useCompanies } from "@/hooks/useCompanies";
 import { AuthStorage } from "@/lib/auth";
 import { VITE_FRONT } from "@/constants";
-import { ChevronDown, ChevronUp, Search, ExternalLink } from "lucide-react";
+import { ChevronDown, ChevronUp, Search, ExternalLink, Edit } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "@tanstack/react-router";
 
 export function CustomersPage() {
   const { companies, isLoading, error, refetchCompanies } = useCompanies();
@@ -56,7 +57,6 @@ export function CustomersPage() {
       {/* Header */}
       <div className="bg-gray-200 py-2">
         <h1 className="text-3xl font-bold tracking-tight">Customers</h1>
-
       </div>
 
       {/* Search and Controls */}
@@ -89,7 +89,6 @@ export function CustomersPage() {
               <TableHead>SMS Credits</TableHead>
               <TableHead className="text-right">Actions</TableHead>
               <TableHead className="w-20"></TableHead>
-
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -103,39 +102,52 @@ export function CustomersPage() {
                 <>
                   <CollapsibleTrigger asChild>
                     <TableRow className="cursor-pointer hover:bg-muted/50 h-20">
-
-                      <TableCell className="font-medium ">
+                      <TableCell className="font-medium">
                         {company.name || "N/A"}
                       </TableCell>
-                      <TableCell className="">
+                      <TableCell>
                         {company.email ? company.email.split('@')[0] : "N/A"}
                       </TableCell>
-                      <TableCell className="">
+                      <TableCell>
                         {company.last_activity || "N/A"}
                       </TableCell>
-                      <TableCell className="">
+                      <TableCell>
                         <Badge variant={getSMSBadgeVariant(company.sms_remining || 0)}>
                           {company.sms_remining || 0}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-right ">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 px-3"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(
-                              `${VITE_FRONT}login?email=${company.email}&password=${AuthStorage.getPassword()}`,
-                              '_blank'
-                            );
-                          }}
-                        >
-                          <ExternalLink className="h-4 w-4 mr-1" />
-                          Login
-                        </Button>
+                      <TableCell className="text-right">
+                        <div className="flex gap-2 justify-end">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 px-3"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(
+                                `${VITE_FRONT}login?email=${company.email}&password=${AuthStorage.getPassword()}`,
+                                '_blank'
+                              );
+                            }}
+                          >
+                            <ExternalLink className="h-4 w-4 mr-1" />
+                            Login
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-8 px-3"
+                            asChild
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Link to="/companies/$companyId/edit" params={{ companyId: company.id }}>
+                              <Edit className="h-4 w-4 mr-1" />
+                              Edit
+                            </Link>
+                          </Button>
+                        </div>
                       </TableCell>
-                      <TableCell className="">
+                      <TableCell>
                         {expandedRows.has(company.id) ? (
                           <ChevronUp className="h-4 w-4 mx-auto" />
                         ) : (
@@ -200,7 +212,17 @@ export function CustomersPage() {
                                   }}
                                 >
                                   <ExternalLink className="h-4 w-4 mr-2" />
-                                  Open Stripe Portal
+                                  Open Customer Portal
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  className="w-full justify-start"
+                                  asChild
+                                >
+                                  <Link to="/companies/$companyId/edit" params={{ companyId: company.id }}>
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    Edit Company Details
+                                  </Link>
                                 </Button>
                               </div>
                             </div>
