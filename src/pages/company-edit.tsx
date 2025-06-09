@@ -8,14 +8,22 @@ import { VITE_FRONT } from "@/constants";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Save, ArrowLeft } from "lucide-react";
-import type { Company } from "@/services/api";
+import { useCompany } from "@/hooks/useCompany";
 
 export function CompanyEditPage() {
     const { companyId } = useParams({ from: '/companies/$companyId/edit' });
     const navigate = useNavigate();
-    const [company, setCompany] = useState<Company | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isSaving, setIsSaving] = useState(false);
+    const { 
+        company, 
+        isLoading, 
+        error,
+        updateCompany, 
+        isUpdating, 
+        updateError, 
+        updateSuccess,
+        refetchCompany 
+    } = useCompany(companyId);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -27,67 +35,14 @@ export function CompanyEditPage() {
 
     const handleSavePassword = (password: string) => {
         AuthStorage.setPassword(password);
-        // Refetch company data when password is updated
-        fetchCompanyData();
-    };
-
-    const fetchCompanyData = async () => {
-        try {
-            setIsLoading(true);
-            // TODO: Implement API call to fetch single company by ID
-            // const response = await UserService.getCompany(companyId);
-            // setCompany(response);
-            // setFormData({
-            //   name: response.name,
-            //   email: response.email,
-            //   phone: response.phone,
-            //   twilio_phone: response.twilio_phone,
-            //   address: response.address,
-            //   sms_remining: response.sms_remining,
-            // });
-
-            // Mock data for now - replace with actual API call
-            const mockCompany: Company = {
-                id: companyId,
-                name: "Sample Company",
-                email: "sample@company.com",
-                phone: "+1234567890",
-                twilio_phone: "+1987654321",
-                address: "123 Main St, City, State",
-                sms_remining: 150,
-                company_category_id: 1,
-                timezone_offset_mins: -300,
-                timezone: "America/New_York",
-                city: "New York",
-                created_at: "2024-01-01",
-                last_activity: "2024-01-15",
-            };
-
-            setCompany(mockCompany);
-            setFormData({
-                name: mockCompany.name,
-                email: mockCompany.email,
-                phone: mockCompany.phone,
-                twilio_phone: mockCompany.twilio_phone,
-                address: mockCompany.address,
-                sms_remining: mockCompany.sms_remining,
-            });
-        } catch (error) {
-            console.error("Error fetching company:", error);
-        } finally {
-            setIsLoading(false);
-        }
+        refetchCompany();
     };
 
     const handleSave = async () => {
         try {
-            setIsSaving(true);
-            console.log("Saving company data:", formData);
-            navigate({ to: '/customers' });
+            updateCompany(formData);
         } catch (error) {
             console.error("Error saving company:", error);
-        } finally {
-            setIsSaving(false);
         }
     };
 
@@ -104,16 +59,46 @@ export function CompanyEditPage() {
         return "destructive";
     };
 
+    // Update form data when company data is loaded
     useEffect(() => {
-        fetchCompanyData();
-    }, [companyId]);
+        if (company) {
+            setFormData({
+                name: company.name || "",
+                email: company.email || "",
+                phone: company.phone || "",
+                twilio_phone: company.twilio_phone || "",
+                address: company.address || "",
+                sms_remining: company.sms_remining || 0,
+            });
+        }
+    }, [company]);
+
+    // Navigate back to customers page on successful update
+    useEffect(() => {
+        if (updateSuccess) {
+            navigate({ to: '/customers' });
+        }
+    }, [updateSuccess, navigate]);
 
     if (isLoading) {
         return <div className="flex items-center justify-center min-h-[400px]">Loading...</div>;
     }
 
-    if (!company) {
-        return <div className="flex items-center justify-center min-h-[400px]">Company not found</div>;
+    if (error || !company) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+                <div className="text-center">
+                    <h2 className="text-lg font-semibold">Company not found</h2>
+                    <p className="text-muted-foreground">
+                        {error ? "Error loading company data" : "The company you're looking for doesn't exist"}
+                    </p>
+                </div>
+                <Button onClick={() => navigate({ to: '/customers' })}>
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Customers
+                </Button>
+            </div>
+        );
     }
 
     return (
@@ -135,6 +120,17 @@ export function CompanyEditPage() {
                     <PasswordInput onSave={handleSavePassword} className="w-64" />
                 </div>
             </div>
+
+            {/* Error Messages */}
+            {updateError && (
+                <Card className="border-red-200 bg-red-50">
+                    <CardContent className="pt-6">
+                        <p className="text-red-800 text-sm">
+                            Error updating company: {updateError.message}
+                        </p>
+                    </CardContent>
+                </Card>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Edit Form */}
@@ -201,13 +197,14 @@ export function CompanyEditPage() {
                             </div>
 
                             <div className="flex gap-4 pt-4">
-                                <Button onClick={handleSave} disabled={isSaving}>
+                                <Button onClick={handleSave} disabled={isUpdating}>
                                     <Save className="h-4 w-4 mr-2" />
-                                    {isSaving ? 'Saving...' : 'Save Changes'}
+                                    {isUpdating ? 'Saving...' : 'Save Changes'}
                                 </Button>
                                 <Button
                                     variant="outline"
                                     onClick={() => navigate({ to: '/customers' })}
+                                    disabled={isUpdating}
                                 >
                                     Cancel
                                 </Button>
@@ -280,12 +277,6 @@ export function CompanyEditPage() {
                         </CardContent>
                     </Card>
                 </div>
-            </div>
-            <div>
-                <p>
-                    {(JSON.stringify(formData))}
-                </p>
-
             </div>
         </div>
     );
