@@ -44,6 +44,15 @@ export interface Dashboard {
   low_sms_companies: Company[];
 }
 
+export interface UpdateCompanyData {
+  name: string;
+  email: string;
+  phone: string;
+  twilio_phone: string;
+  address: string;
+  sms_remining: number;
+}
+
 export const UserService = {
   getCompanies: async (): Promise<Company[]> => {
     try {
@@ -54,6 +63,40 @@ export const UserService = {
       return response.data;
     } catch (error) {
       return [];
+    }
+  },
+  getCompany: async (companyId: string): Promise<Company | null> => {
+    try {
+      const password = AuthStorage.getPassword();
+      const response = await apiClient.get<Company>(
+        `/companies/${companyId}/`,
+        {
+          params: { password },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching company:", error);
+      return null;
+    }
+  },
+  updateCompany: async (
+    companyId: string,
+    data: UpdateCompanyData
+  ): Promise<Company | null> => {
+    try {
+      const password = AuthStorage.getPassword();
+      const response = await apiClient.post<Company>(
+        `/companies/${companyId}/update/`,
+        {
+          ...data,
+          password,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating company:", error);
+      throw error;
     }
   },
   getCalls: async (): Promise<Call[]> => {
