@@ -99,6 +99,7 @@ export interface Call {
   summary: string;
   audio_url: string;
   grade: string;
+  time: string;
   created_at: string;
 }
 

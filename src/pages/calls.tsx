@@ -103,10 +103,10 @@ export function CallsPage() {
                         )}
                       </TableCell>
                       <TableCell className="py-4">
-                        {call.created_at ? (
+                        {call.time ? (
                           <time
-                            dateTime={call.created_at}
-                            title={`${call.created_at} UTC`}
+                            dateTime={new Date(call.time).toISOString()}
+                            title={`${new Date(call.time).toUTCString()}`}
                           >
                             {new Intl.DateTimeFormat("en-US", {
                               year: "numeric",
@@ -115,7 +115,7 @@ export function CallsPage() {
                               hour: "numeric",
                               minute: "numeric",
                               timeZoneName: "short",
-                            }).format(new Date(`${call.created_at}Z`))}
+                            }).format(new Date(call.time))}
                           </time>
                         ) : (
                           "N/A"
