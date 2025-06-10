@@ -168,14 +168,30 @@ export function CallsPage() {
                               <div className="space-y-3">
                                 {call.summary && (
                                   <div>
-                                    {Object.entries(JSON.parse(call.summary)).map(([key, value]: [string, unknown]) => (
-                                      <div key={key}>
-                                        <h4 className="font-semibold text-sm mb-2">{key}:</h4>
-                                        <div className="min-h-[3rem] max-h-[7.5rem] overflow-y-auto border rounded-md p-3 bg-muted/30 text-sm leading-relaxed">
-                                          {typeof value === 'string' ? value : JSON.stringify(value)}
-                                        </div>
-                                      </div>
-                                    ))}
+                                    {(() => {
+                                      try {
+                                        const parsedSummary = JSON.parse(call.summary);
+                                        return Object.entries(parsedSummary).map(([key, value]: [string, unknown]) => (
+                                          <div key={key} className="mb-4">
+                                            <h4 className="font-semibold text-sm mb-2 capitalize">
+                                              {key.replace(/_/g, ' ')}:
+                                            </h4>
+                                            <div className="min-h-[3rem] max-h-[7.5rem] overflow-y-auto border rounded-md p-3 bg-muted/30 text-sm leading-relaxed">
+                                              {typeof value === 'object' && value !== null
+                                                ? JSON.stringify(value, null, 2)
+                                                : String(value || 'N/A')
+                                              }
+                                            </div>
+                                          </div>
+                                        ));
+                                      } catch (error) {
+                                        return (
+                                          <div className="text-sm text-red-600">
+                                            Error parsing summary: {call.summary}
+                                          </div>
+                                        );
+                                      }
+                                    })()}
                                   </div>
                                 )}
 
