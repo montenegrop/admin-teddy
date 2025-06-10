@@ -162,6 +162,43 @@ export function DashboardPage() {
             </Table>
           </Card>
         </CardContent>
+        <CardContent className="space-y-4">
+          <CardDescription className="text-sm font-medium text-yellow-800">
+            Companies with 0 calls today:
+          </CardDescription>
+
+          <Card>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Business Name</TableHead>
+                  {/* <TableHead>SMS Credits</TableHead> */}
+                  <TableHead className="text-right">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {dashboardData?.no_calls_companies.map((company, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{company.name}</TableCell>
+                    {/* <TableCell>
+                      <Badge
+                        variant={company.sms_remining < 10 ? "destructive" : "secondary"}
+                      >
+                        {company.sms_remining}
+                      </Badge>
+                    </TableCell> */}
+                    <TableCell className="text-right">
+                      {/* <Button variant="outline" size="sm">
+                        <Link className="h-4 w-4 mr-1" to={`/companies/${company.id}/edit`} />
+                        Fill
+                      </Button> */}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Card>
+        </CardContent>
       </Card>
     </div>
   )

@@ -103,7 +103,23 @@ export function CallsPage() {
                         )}
                       </TableCell>
                       <TableCell className="py-4">
-                        {call.twilio || "N/A"}
+                        {call.created_at ? (
+                          <time
+                            dateTime={call.created_at}
+                            title={`${call.created_at} UTC`}
+                          >
+                            {new Intl.DateTimeFormat("en-US", {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                              hour: "numeric",
+                              minute: "numeric",
+                              timeZoneName: "short",
+                            }).format(new Date(`${call.created_at}Z`))}
+                          </time>
+                        ) : (
+                          "N/A"
+                        )}
                       </TableCell>
                       <TableCell className="py-4">
                         {call.caller || "N/A"}
@@ -150,20 +166,18 @@ export function CallsPage() {
                             <div>
                               <h3 className="font-semibold text-lg mb-4">Call Analysis</h3>
                               <div className="space-y-3">
-                                <div>
-                                  <h4 className="font-semibold text-sm mb-2">Summary:</h4>
-                                  <div className="min-h-[3rem] max-h-[7.5rem] overflow-y-auto border rounded-md p-3 bg-muted/30 text-sm leading-relaxed">
-                                    {(() => {
-                                      try {
-                                        return call.summary
-                                          ? JSON.parse(call.summary).call_summary || "No summary available"
-                                          : "No summary available";
-                                      } catch (error) {
-                                        return call.summary || "No summary available";
-                                      }
-                                    })()}
+                                {call.summary && (
+                                  <div>
+                                    {Object.entries(JSON.parse(call.summary)).map(([key, value]: [string, unknown]) => (
+                                      <div key={key}>
+                                        <h4 className="font-semibold text-sm mb-2">{key}:</h4>
+                                        <div className="min-h-[3rem] max-h-[7.5rem] overflow-y-auto border rounded-md p-3 bg-muted/30 text-sm leading-relaxed">
+                                          {typeof value === 'string' ? value : JSON.stringify(value)}
+                                        </div>
+                                      </div>
+                                    ))}
                                   </div>
-                                </div>
+                                )}
 
                                 {call.audio_url && (
                                   <Button
