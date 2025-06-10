@@ -102,7 +102,7 @@ export function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <MetricCard
             title="Calls Today"
-            value={formatMetricValue(dashboardData?.calls_count, "Error")}
+            value={formatMetricValue(dashboardData?.calls_today, "Error")}
             change="+5% from yesterday"
             icon={Phone}
           />
