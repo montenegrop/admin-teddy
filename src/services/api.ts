@@ -106,6 +106,15 @@ export interface Call {
   created_at: string;
 }
 
+export interface Text {
+  id: string;
+  company_name: string;
+  from: string;
+  to: string;
+  created_at: string;
+  content: string;
+}
+
 export interface Dashboard {
   companies_count: number;
   calls_count: number;
@@ -244,6 +253,29 @@ export const UserService = {
         throw error;
       }
       throw new ApiError("Failed to fetch dashboard data", 500);
+    }
+  },
+
+  getTexts: async (): Promise<Text[]> => {
+    const password = AuthStorage.getPassword();
+    if (!password) {
+      throw new ApiError(
+        "Please enter your admin password",
+        401,
+        "no_password"
+      );
+    }
+
+    try {
+      const response = await apiClient.get<Text[]>("/texts/", {
+        params: { password, limit: 20, offset: 0 },
+      });
+      return response.data;
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw error;
+      }
+      throw new ApiError("Failed to fetch texts", 500);
     }
   },
 };

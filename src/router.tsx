@@ -4,6 +4,7 @@ import { CallsPage } from '@/pages/calls'
 import { CustomersPage } from './pages/customers'
 import { DashboardPage } from './pages/dashboard'
 import { CompanyEditPage } from './pages/company-edit'
+import { TextsPage } from './pages/texts'
 
 // Create a root route
 const rootRoute = createRootRoute({
@@ -37,6 +38,12 @@ const callsRoute = createRoute({
   getParentRoute: () => rootRoute,
 })
 
+const textsRoute = createRoute({
+  component: TextsPage,
+  path: '/texts',
+  getParentRoute: () => rootRoute,
+})
+
 // Create a company edit route with dynamic company ID parameter
 const companyEditRoute = createRoute({
   component: CompanyEditPage,
@@ -50,7 +57,8 @@ const routeTree = rootRoute.addChildren([
   customersRoute,
   callsRoute,
   DashboardRoute,
-  companyEditRoute
+  companyEditRoute,
+  textsRoute
 ])
 
 // Create the router

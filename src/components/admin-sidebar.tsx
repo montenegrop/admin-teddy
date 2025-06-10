@@ -29,11 +29,11 @@ const items = [
     url: "/calls",
     icon: Calendar,
   },
-  // {
-  //   title: "Text Logs",
-  //   url: "/texts",
-  //   icon: Search,
-  // },
+  {
+    title: "Text Logs",
+    url: "/texts",
+    icon: Search,
+  },
   // {
   //   title: "Settings",
   //   url: "/settings",
