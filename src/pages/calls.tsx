@@ -180,7 +180,8 @@ export function CallsPage() {
                                 )} */}
                                 <h4>Summary</h4>
                                 <div className="min-h-[3rem] max-h-[7.5rem] overflow-y-auto border rounded-md p-3 bg-muted/30 text-sm leading-relaxed">
-                                  {(JSON.parse(call.summary) as { call_summary?: string }).call_summary ?? '--'}
+                                  {/* {(JSON.parse(call.summary) as { call_summary?: string }).call_summary ?? '--'} */}
+                                  summary
                                 </div>
 
                                 {call.audio_url && (
