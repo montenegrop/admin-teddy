@@ -166,7 +166,7 @@ export function CallsPage() {
                             <div>
                               <h3 className="font-semibold text-lg mb-4">Call Analysis</h3>
                               <div className="space-y-3">
-                                {/* {call.summary && (
+                                {call.summary && (
                                   <div>
                                     {Object.entries(JSON.parse(call.summary)).map(([key, value]: [string, unknown]) => (
                                       <div key={key}>
@@ -177,12 +177,7 @@ export function CallsPage() {
                                       </div>
                                     ))}
                                   </div>
-                                )} */}
-                                <h4>Summary</h4>
-                                <div className="min-h-[3rem] max-h-[7.5rem] overflow-y-auto border rounded-md p-3 bg-muted/30 text-sm leading-relaxed">
-                                  {/* {(JSON.parse(call.summary) as { call_summary?: string }).call_summary ?? '--'} */}
-                                  summary
-                                </div>
+                                )}
 
                                 {call.audio_url && (
                                   <Button
