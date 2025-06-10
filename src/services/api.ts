@@ -66,16 +66,10 @@ apiClient.interceptors.response.use(
     const errorMessage = extractErrorMessage(error);
     const errorType = error.response?.data?.error_type;
     // const errors = error.response?.data?.detail?.errors;
-
-    // Log error for debugging
     console.error(`API Error [${statusCode}]:`, errorMessage);
-
-    // Special handling for authentication errors
     if (statusCode === 401) {
-      // Clear stored password on authentication failure
       AuthStorage.clearPassword();
     }
-
     throw new ApiError(errorMessage, statusCode, errorType, []);
   }
 );

@@ -67,6 +67,8 @@ function MetricCard({
 export function DashboardPage() {
   const { dashboardData } = useDashboard()
 
+
+
   return (
     <div className="space-y-8">
       <div className="bg-gray-200 py-2">

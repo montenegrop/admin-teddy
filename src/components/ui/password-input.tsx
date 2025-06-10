@@ -25,7 +25,7 @@ export function PasswordInput({
   return (
     <div className={cn("flex gap-2", className)}>
       <Input
-        type="password"
+        type="text"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter password"

@@ -5,6 +5,7 @@ import { CustomersPage } from './pages/customers'
 import { DashboardPage } from './pages/dashboard'
 import { CompanyEditPage } from './pages/company-edit'
 import { TextsPage } from './pages/texts'
+import { LoginPage } from './pages/login'
 
 // Create a root route
 const rootRoute = createRootRoute({
@@ -12,13 +13,13 @@ const rootRoute = createRootRoute({
 })
 
 // Create an index route
-const indexRoute = createRoute({
-  component: DashboardPage,
+const loginRoute = createRoute({
+  component: LoginPage,
   path: '/',
   getParentRoute: () => rootRoute,
 })
 
-const DashboardRoute = createRoute({
+const dashboardRoute = createRoute({
   component: DashboardPage,
   path: '/dashboard',
   getParentRoute: () => rootRoute,
@@ -53,10 +54,10 @@ const companyEditRoute = createRoute({
 
 // Create the route tree
 const routeTree = rootRoute.addChildren([
-  indexRoute,
+  loginRoute,
   customersRoute,
   callsRoute,
-  DashboardRoute,
+  dashboardRoute,
   companyEditRoute,
   textsRoute
 ])
