@@ -45,7 +45,6 @@ export function CustomersPage() {
 
   const getSMSBadgeVariant = (smsRemaining: number) => {
     if (smsRemaining > 50) return "default";
-    if (smsRemaining > 20) return "secondary";
     return "destructive";
   };
 
@@ -198,7 +197,7 @@ export function CustomersPage() {
                                 </div>
                               </dl>
                             </div>
-                            <div>
+                            {/* <div>
                               <h3 className="font-semibold text-lg mb-4">Actions</h3>
                               <div className="space-y-3">
                                 <Button
@@ -225,7 +224,7 @@ export function CustomersPage() {
                                   </Link>
                                 </Button>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </TableCell>

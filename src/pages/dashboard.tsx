@@ -105,13 +105,13 @@ export function DashboardPage() {
           <MetricCard
             title="Calls Today"
             value={formatMetricValue(dashboardData?.calls_today, "Error")}
-            change="+5% from yesterday"
+            // change="+5% from yesterday"
             icon={Phone}
           />
           <MetricCard
             title="Texts Sent Today"
             value={formatMetricValue(dashboardData?.sms_today, "Error")}
-            change="+12% from yesterday"
+            // change="+12% from yesterday"
             icon={MessageSquare}
           />
         </div>
@@ -127,7 +127,7 @@ export function DashboardPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <CardDescription className="text-sm font-medium text-yellow-800">
-            Companies with low SMS credits (less than 200):
+            Companies with low SMS credits (less than 50):
           </CardDescription>
 
           <Card>

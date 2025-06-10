@@ -104,7 +104,7 @@ export interface Call {
 
 export interface Text {
   id: string;
-  company_name: string;
+  name: string;
   from: string;
   to: string;
   created_at: string;

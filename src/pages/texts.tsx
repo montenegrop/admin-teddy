@@ -93,22 +93,23 @@ export function TextsPage() {
                                         <TableRow className="cursor-pointer hover:bg-muted/50 h-16">
 
                                             <TableCell className="font-medium py-4">
-                                                {text.company_name && text.company_name.length > 25 ? (
-                                                    <span title={text.company_name}>{text.company_name.slice(0, 25)}...</span>
+                                                {text.name && text.name.length > 25 ? (
+                                                    <span title={text.name}>{text.name.slice(0, 25)}...</span>
                                                 ) : (
-                                                    text.company_name || "N/A"
+                                                    text.name || "N/A"
                                                 )}
                                             </TableCell>
 
+                                            <TableCell className="py-4">
+                                                {"-"}
+                                            </TableCell>
                                             <TableCell className="py-4">
                                                 {text.from || "N/A"}
                                             </TableCell>
                                             <TableCell className="py-4">
                                                 {text.to || "N/A"}
                                             </TableCell>
-                                            <TableCell className="py-4">
-                                                {text.created_at || "N/A"}
-                                            </TableCell>
+
                                             <TableCell className="py-4">
                                                 {text.created_at ? (
                                                     <time
