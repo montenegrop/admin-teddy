@@ -1,5 +1,5 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
 import { Link } from "@tanstack/react-router"
+import { Calendar, Home, Inbox, Search } from "lucide-react"
 
 import {
   Sidebar,

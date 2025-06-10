@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import {
     Table,
     TableBody,
@@ -7,14 +10,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { PasswordInput } from "@/components/ui/password-input";
-import { AuthStorage } from "@/lib/auth";
-import { useCalls } from "@/hooks/useCalls";
-import { ChevronDown, ChevronUp, Search, ExternalLink, Play } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useTexts } from "@/hooks/useTexts";
+import { AuthStorage } from "@/lib/auth";
+import { ChevronDown, ChevronUp, Search } from "lucide-react";
+import { useState } from "react";
 
 export function TextsPage() {
     const { texts, isLoading, error, refetchtexts } = useTexts();

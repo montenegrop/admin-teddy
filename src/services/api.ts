@@ -25,6 +25,8 @@ const extractErrorMessage = (error: any): string => {
       return detail;
     } else if (detail.message) {
       return detail.message;
+    } else if (detail.errors) {
+      return detail.errors.join(", ");
     }
   }
   if (error.response?.data?.message) {
@@ -63,7 +65,7 @@ apiClient.interceptors.response.use(
     const statusCode = error.response?.status || 500;
     const errorMessage = extractErrorMessage(error);
     const errorType = error.response?.data?.error_type;
-    const errors = error.response?.data?.detail.errors;
+    // const errors = error.response?.data?.detail?.errors;
 
     // Log error for debugging
     console.error(`API Error [${statusCode}]:`, errorMessage);
@@ -74,7 +76,7 @@ apiClient.interceptors.response.use(
       AuthStorage.clearPassword();
     }
 
-    throw new ApiError(errorMessage, statusCode, errorType, errors);
+    throw new ApiError(errorMessage, statusCode, errorType, []);
   }
 );
 

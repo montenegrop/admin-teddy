@@ -1,7 +1,11 @@
-import * as React from 'react'
-import { Users, Phone, MessageSquare, AlertTriangle, ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import {
   Table,
   TableBody,
@@ -10,15 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import { useDashboard } from '@/hooks/useDashboard'
-import { Link } from '@tanstack/react-router'
+import { AlertTriangle, MessageSquare, Phone, Users } from "lucide-react"
+import * as React from 'react'
 
 
 

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { UserService, type UpdateCompanyData } from "@/services/api";
+import { UserService, CompanyUpdateData } from "@/services/api";
 
 export function useCompany(companyId: string) {
   const queryClient = useQueryClient();
@@ -11,7 +11,7 @@ export function useCompany(companyId: string) {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (updateData: UpdateCompanyData) => 
+    mutationFn: (updateData: CompanyUpdateData) =>
       UserService.updateCompany(companyId, updateData),
     onSuccess: () => {
       // Invalidate and refetch company data
